@@ -41,6 +41,7 @@ public class TestCases {
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]")))).sendKeys("Crio Learner");
         long epochTime = Instant.now().getEpochSecond();
         String message = "I want to be the best QA Engineer! " + epochTime;
+        System.out.println(message);
         driver.findElement(By.xpath("//textarea")).sendKeys(message);
         driver.findElement(By.xpath("//div[@class='SG0AAe']/div[2]/label/div/div[1]")).click();
         List<WebElement> checkbox = driver.findElements(By.xpath("(//div[@role='list'])[2]/div/label/div/div[2]/div/span"));
@@ -68,6 +69,7 @@ public class TestCases {
         // Enter date
         WebElement dateField = driver.findElement(By.xpath("//input[@type='date']"));
         dateField.sendKeys(formattedDate);
+        System.out.println(dateField);
      // Enter time 07:30
         WebElement hourField = driver.findElement(By.xpath("//input[@aria-label='Hour']"));
         WebElement minuteField = driver.findElement(By.xpath("//input[@aria-label='Minute']"));
