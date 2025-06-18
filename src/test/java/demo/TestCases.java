@@ -56,6 +56,21 @@ public class TestCases {
         }
         
         
+        WebElement addressedDropDown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='vQES8d']/div[@role='listbox']")));
+        Wrappers.clickOnDropDown(addressedDropDown);
+        Thread.sleep(2000);
+        //  Wait for the "Ms" option to be visible and click it
+       List<WebElement> allDropdownValues=driver.findElements(By.xpath("//div[contains(@class,'ncFHed')]//span[not(contains(text(),'Choose'))]"));
+        Wrappers.selectValueFromDropDown(allDropdownValues,"Ms");
+       // WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
+        //msOption.click();
+        
+        // WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listbox'][@jsname='W85ice']")));
+        // dropdown.click();
+     
+        // Wait for the "Ms" option to be visible and click it
+        //WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
+       // msOption.click();
         // Wrappers.clickOnCheckboxes(checkbox, "Selenium");
         // Wrappers.clickOnCheckboxes(checkbox, "TestNG");
         // for(WebElement e: checkbox){
@@ -64,24 +79,13 @@ public class TestCases {
         //         e.click();
         //     }
         // }
-        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listbox'][@jsname='W85ice']")));
-        dropdown.click();
-     
-        // Wait for the "Ms" option to be visible and click it
-        WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
-        msOption.click();
      //xpath with not contains - //div[contains(@class,'ncFHed')]//span[not(contains(text(),'Choose'))]
      ////div[contains(@class,'ncFHed')]
         
-        // WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listbox'][@jsname='W85ice']")));
-        // Wrappers.clickOnDropDown(dropdown);
+     
      
 
-        // // Wait for the "Ms" option to be visible and click it
-        // List<WebElement> allDropdownValues=driver.findElements(By.xpath("//div[contains(@class,'ncFHed')]//span[not(contains(text(),'Choose'))]"));
-        // Wrappers.selectValueFromDropDown(allDropdownValues,"Ms");
-        //WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
-        //msOption.click();
+        
         
         Thread.sleep(5000);
      // Get current date minus 7 days dynamically

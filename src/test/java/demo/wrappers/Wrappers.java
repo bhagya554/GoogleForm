@@ -1,29 +1,15 @@
 package demo.wrappers;
 
-import java.time.Instant;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+
 
 public class Wrappers {
-    /*
-     * Write your selenium wrappers here
-     */
-
-    //  WebDriver driver;
-    //  public Wrappers(WebDriver driver){
-    //     this.driver = driver;
-    //  }
+   
      public static void enterText(WebElement ele,String text){
         try{
             ele.clear();
@@ -79,14 +65,29 @@ public class Wrappers {
      }
       }
 
-     public static void selectValueFromDropDown(WebElement ele,String dropDownValue){
+    public static void clickOnDropDown(WebElement ele){
+        try{
+            ele.click();
+        }
+        catch(Exception e){
+            System.out.println("Unble to click on drop down ele: " + ele);
+        }
+    }
 
+     public static void selectValueFromDropDown(List<WebElement> addressingValues,String dropDownTxt){
+        for(WebElement drop:addressingValues){
+            if(drop.getText().equals(dropDownTxt)){
+                drop.click();
+                break;
+            }
+        }
      }
 
      public static String currentDateMinus7(){
         LocalDateTime dateMinus7 = LocalDateTime.now().minusDays(7);
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = dateMinus7.format(myFormatObj);
+        System.out.println("Date minus 7: " + formattedDate);
     return formattedDate;
     }
 
@@ -99,4 +100,10 @@ public class Wrappers {
         }
     }
 
+    public static boolean handleAlert(ChromeDriver driver){
+        boolean status = false;
+        driver.switchTo().alert().dismiss();
+        status=true;
+        return status;
+    }
 }
