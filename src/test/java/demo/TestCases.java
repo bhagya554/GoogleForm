@@ -14,10 +14,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 // import io.github.bonigarcia.wdm.WebDriverManager;
@@ -25,7 +21,7 @@ import demo.wrappers.Wrappers;
 
 public class TestCases {
     ChromeDriver driver;
-
+    WebDriverWait wait ;
     /*
      * TODO: Write your tests here with testng @Test annotation.
      * Follow `testCase01` `testCase02`... format or what is provided in
@@ -34,10 +30,6 @@ public class TestCases {
 
     @Test
     public void testCase01() throws InterruptedException {
-        driver.get("https://forms.gle/wjPkzeSEk1CM7KgGA");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement nameElement=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]"))));
         Wrappers.enterText(nameElement, "Crio Learner");
         String epochTime = Wrappers.getEpochTime();
@@ -89,7 +81,7 @@ public class TestCases {
         
         Thread.sleep(5000);
      // Get current date minus 7 days dynamically
-        String formattedDate=Wrappers.currentDateMinus7();
+        String formattedDate=Wrappers.currentDateMinus7(7);
         // Enter date
         WebElement dateField = driver.findElement(By.xpath("//input[@type='date']"));
         dateField.sendKeys(formattedDate);
@@ -110,7 +102,7 @@ public class TestCases {
      
         // Submit the form
         WebElement submitButton = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Submit')]"))));
-        Wrappers.clickOnBtn(submitButton);
+        Wrappers.clickOnBtn(driver,submitButton);
         //submitButton.click();
      
         // Wait and capture success message
@@ -146,8 +138,11 @@ public class TestCases {
         System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, "build/chromedriver.log");
 
         driver = new ChromeDriver(options);
-
+        driver.get("https://forms.gle/wjPkzeSEk1CM7KgGA");
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      
     }
 
     @AfterTest

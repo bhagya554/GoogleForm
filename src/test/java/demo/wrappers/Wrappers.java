@@ -4,6 +4,8 @@ package demo.wrappers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -83,20 +85,22 @@ public class Wrappers {
         }
      }
 
-     public static String currentDateMinus7(){
-        LocalDateTime dateMinus7 = LocalDateTime.now().minusDays(7);
+     public static String currentDateMinus7(int days){
+        LocalDateTime dateMinus7 = LocalDateTime.now().minusDays(days);
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = dateMinus7.format(myFormatObj);
         System.out.println("Date minus 7: " + formattedDate);
     return formattedDate;
     }
 
-    public static void clickOnBtn(WebElement ele){
+    public static void clickOnBtn(ChromeDriver driver,WebElement ele){
         try{
-        ele.click();
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("arguments[0].click();",ele);
+       // ele.click();
         }
         catch(Exception e){
-            System.out.println("Unable to click on button");;
+            System.out.println("Unable to click on element");;
         }
     }
 
