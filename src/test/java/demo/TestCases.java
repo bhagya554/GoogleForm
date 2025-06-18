@@ -38,54 +38,76 @@ public class TestCases {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]")))).sendKeys("Crio Learner");
-        long epochTime = Instant.now().getEpochSecond();
+        WebElement nameElement=wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]"))));
+        Wrappers.enterText(nameElement, "Crio Learner");
+        String epochTime = Wrappers.getEpochTime();
         String message = "I want to be the best QA Engineer! " + epochTime;
         System.out.println(message);
-        driver.findElement(By.xpath("//textarea")).sendKeys(message);
-        driver.findElement(By.xpath("//div[@class='SG0AAe']/div[2]/label/div/div[1]")).click();
-        List<WebElement> checkbox = driver.findElements(By.xpath("(//div[@role='list'])[2]/div/label/div/div[2]/div/span"));
-        for(WebElement e: checkbox){
-            String eleText = e.getText();
-            if(eleText.equalsIgnoreCase("Java")||eleText.equalsIgnoreCase("Selenium")||eleText.equalsIgnoreCase("TestNG")){
-                e.click();
-            }
+        WebElement whyUPracticeAutomation=driver.findElement(By.xpath("//textarea"));
+        Wrappers.enterText(whyUPracticeAutomation, message);
+        List<WebElement> allRadioExperiences=driver.findElements(By.xpath("//div[@class='SG0AAe']//span[@dir='auto']"));
+        //0 - 2,3 - 5,6 - 10,> 10 
+        Wrappers.clickOnRadioBtn(allRadioExperiences, "> 10");
+         
+        String[] checkBoxText={"Java","Selenium","TestNG"};
+        for(int i=0;i<checkBoxText.length;i++){
+            WebElement checkbox= driver.findElement(By.xpath("//span[text()='"+checkBoxText[i]+"']"));
+            Wrappers.clickOnCheckboxesUsingXpath(checkbox);
         }
-     
-     
-     
         
+        
+        // Wrappers.clickOnCheckboxes(checkbox, "Selenium");
+        // Wrappers.clickOnCheckboxes(checkbox, "TestNG");
+        // for(WebElement e: checkbox){
+        //     String eleText = e.getText();
+        //     if(eleText.equalsIgnoreCase("Java")||eleText.equalsIgnoreCase("Selenium")||eleText.equalsIgnoreCase("TestNG")){
+        //         e.click();
+        //     }
+        // }
         WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listbox'][@jsname='W85ice']")));
         dropdown.click();
      
         // Wait for the "Ms" option to be visible and click it
         WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
         msOption.click();
+     //xpath with not contains - //div[contains(@class,'ncFHed')]//span[not(contains(text(),'Choose'))]
+     ////div[contains(@class,'ncFHed')]
+        
+        // WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listbox'][@jsname='W85ice']")));
+        // Wrappers.clickOnDropDown(dropdown);
+     
+
+        // // Wait for the "Ms" option to be visible and click it
+        // List<WebElement> allDropdownValues=driver.findElements(By.xpath("//div[contains(@class,'ncFHed')]//span[not(contains(text(),'Choose'))]"));
+        // Wrappers.selectValueFromDropDown(allDropdownValues,"Ms");
+        //WebElement msOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='option'][@data-value='Ms']")));
+        //msOption.click();
         
         Thread.sleep(5000);
      // Get current date minus 7 days dynamically
-        LocalDate dateMinus7 = LocalDate.now().minusDays(7);
-        String formattedDate = dateMinus7.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String formattedDate=Wrappers.currentDateMinus7();
         // Enter date
         WebElement dateField = driver.findElement(By.xpath("//input[@type='date']"));
         dateField.sendKeys(formattedDate);
         System.out.println(dateField);
-     // Enter time 07:30
+     
+        // Enter time 07:30
         WebElement hourField = driver.findElement(By.xpath("//input[@aria-label='Hour']"));
         WebElement minuteField = driver.findElement(By.xpath("//input[@aria-label='Minute']"));
         
-     
-     
+        Wrappers.enterText(hourField, "7");
+        Wrappers.enterText(minuteField, "30");
         // Enter "7" in the Hour field
-        hourField.sendKeys("7");
+        //hourField.sendKeys("7");
      
         // Enter "30" in the Minute field
-        minuteField.sendKeys("30");
+        // minuteField.sendKeys("30");
         //amPmDropdown.click();
      
         // Submit the form
         WebElement submitButton = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Submit')]"))));
-        submitButton.click();
+        Wrappers.clickOnBtn(submitButton);
+        //submitButton.click();
      
         // Wait and capture success message
         WebElement successMessage = driver
